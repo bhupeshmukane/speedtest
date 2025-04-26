@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Internet Speed Test</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        #loadingSpinner {
+            display: none;
+        }
+    </style>
+
+    <script>
+        function showSpinner() {
+            document.getElementById('loadingSpinner').style.display = 'block';
+        }
+    </script>
+</head>
+<body class="bg-dark text-white">
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">🌐 Internet Speed Test</h1>
+
+    <form method="POST" class="text-center" onsubmit="showSpinner()">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary btn-lg">Test Speed</button>
+    </form>
+
+    <!-- Spinner -->
+    <div id="loadingSpinner" class="text-center mt-4">
+        <div class="spinner-border text-info" role="status" style="width: 5rem; height: 5rem;">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-3">Testing your internet speed... Please wait.</p>
+    </div>
+
+    {% if download %}
+    <div class="mt-4 text-center">
+        <h4>Download Speed: <span class="text-info">{{ download }} Mbps</span></h4>
+        <h4>Upload Speed: <span class="text-success">{{ upload }} Mbps</span></h4>
+        <h4>Ping: <span class="text-warning">{{ ping }} ms</span></h4>
+    </div>
+    {% endif %}
+</div>
+
+</body>
+</html>
